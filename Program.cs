@@ -44,7 +44,9 @@ namespace ConsoleApp1
     }
     public class Cearching
     {
+        //Файл з з номерами телефону
         private string pathtw = @"D:\Документи_диска_С\Службові документи\Полунець\Sorcce\Phone-master\telw.txt";
+        //Дані по дзвінкам
         private string pathV = @"D:\Документи_диска_С\Службові документи\Полунець\Sorcce\Phone-master\Vitr1.txt";
 
         private string texttlv;

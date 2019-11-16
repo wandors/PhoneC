@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,23 +8,25 @@ namespace ConsoleApp1
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            
-            Console.WriteLine("Hello");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Звірка номерів");
+            Console.ForegroundColor = ConsoleColor.White;
+
             //Telephones tels = new Telephones();
             //tels.workT();
             Cearching sers = new Cearching();
-            sers.search();
-            Console.ReadKey();
+            sers.Search();
+
         }
     }
     class Telephones
     {
-        private string patht = @"D:\Документи_диска_С\Службові документи\Полунець\Sorcce\Phone-master\tel.txt";
-        private string pathtw = @"D:\Документи_диска_С\Службові документи\Полунець\Sorcce\Phone-master\telw.txt";
+        private readonly string patht = @"./tel.txt";
+        private readonly string pathtw = @"./telw.txt";
         public string text;
-        public void workT()
+        public void WorkT()
         {
             using (StreamReader sr = new StreamReader(patht, Encoding.Default))
             {
@@ -45,13 +47,13 @@ namespace ConsoleApp1
     public class Cearching
     {
         //Файл з з номерами телефону
-        private string pathtw = @"D:\Документи_диска_С\Службові документи\Полунець\Sorcce\Phone-master\telw.txt";
+        private readonly string pathtw = @"./telw.txt";
         //Дані по дзвінкам
-        private string pathV = @"D:\Документи_диска_С\Службові документи\Полунець\Sorcce\Phone-master\Vitr1.txt";
+        private readonly string pathV = @"./us.txt";
 
         private string texttlv;
         private string Webs;
-        public void search()
+        public void Search()
 
         {
 
@@ -61,7 +63,7 @@ namespace ConsoleApp1
                 texttlv = stl.ReadToEnd();
 
             }
-            using (StreamReader wstl = new StreamReader(pathV, Encoding.Default))
+            using (StreamReader wstl = new StreamReader(pathV, Encoding.UTF8))
             {
 
                 Webs = wstl.ReadToEnd();
@@ -71,14 +73,45 @@ namespace ConsoleApp1
             texttlv = texttlv.Replace("  ", ",");
             var textarr = texttlv.Split(',');
             textarr = textarr.Distinct().ToArray();
+            var indices = new List<int>();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Обробка");
+            Console.ForegroundColor = ConsoleColor.White;
             foreach (var i in textarr)
             {
-                if (Webs.Contains(i))
+               
+                var stres = Webs.IndexOf(i);
+                while (stres > 0)
                 {
-                    Console.WriteLine(i);
+                    indices.Add(stres);
+                    stres = Webs.IndexOf(i, stres + i.Length);
                 }
             }
+            Webs = Webs.Replace('\n', ' ');
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Обробка закінчена");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Знайдено ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("{0}", indices.Count);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" співпадінь!!!");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("---------------------------------'");
+            
+            foreach ( var i in indices)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(Webs.Substring(i - 23, 21));
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Webs.Substring(i - 2, 12));
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(Webs.Substring(i + 10, 50));
+            }
+
+
         }
-     }        
-    
+     
+    }
 }

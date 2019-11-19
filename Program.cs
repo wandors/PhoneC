@@ -50,7 +50,7 @@ namespace ConsoleApp1
         private readonly string pathtw = @"./telw.txt";
         //Дані по дзвінкам
         private readonly string pathV = @"./ua.txt";
-
+        private readonly string datat = @"./Дані дзвінків.txt";
         private string texttlv;
         private string Webs;
         public void Search()
@@ -79,7 +79,7 @@ namespace ConsoleApp1
             Console.ForegroundColor = ConsoleColor.White;
             foreach (var i in textarr)
             {
-               
+
                 var stres = Webs.IndexOf(i);
                 while (stres > 0)
                 {
@@ -88,7 +88,7 @@ namespace ConsoleApp1
                 }
             }
             Webs = Webs.Replace('\t', ' ');
-            Webs = Webs.Replace(" "," ");
+            Webs = Webs.Replace(" ", " ");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Обробка закінчена");
@@ -100,24 +100,26 @@ namespace ConsoleApp1
             Console.WriteLine(" співпадінь!!!");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("---------------------------------'");
-            string palth = Environment.OSVersion.Platform.ToString();
-            if (palth == "Win32NT")
+            //Console.OutputEncoding = Encoding.Unicode;
+            //Console.InputEncoding = Encoding.Unicode;
+
+            if (File.Exists(datat) == true)
             {
-                Console.OutputEncoding = Encoding.Unicode;
-                Console.InputEncoding = Encoding.Unicode;
+                File.Delete(datat);
             }
-            
-            string textss ="";
-            foreach ( var i in indices)
+            using (StreamWriter fl = new StreamWriter(datat, true))
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(Webs.Substring(i - 23, 21));
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write(Webs.Substring(i - 2, 12));
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine(Webs.Substring(i + 10, 48));
-                textss = String.Format("{0} {1} {2}",Webs.Substring(i - 23, 21),Webs.Substring(i-2, 12),Webs.Substring(i+10, 48));
-                
+                foreach (var i in indices)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(Webs.Substring(i - 23, 21));
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(Webs.Substring(i - 2, 12));
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(Webs.Substring(i + 10, 48));
+                    string textss = String.Format("{0} {1} {2}", Webs.Substring(i - 23, 21), Webs.Substring(i - 2, 12), Webs.Substring(i + 10, 48));
+                    fl.WriteLine(textss);
+                }
             }
             
         }

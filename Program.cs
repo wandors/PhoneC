@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Spire.Xls;
 
 namespace ConsoleApp1
 {
@@ -18,7 +19,6 @@ namespace ConsoleApp1
             //tels.workT();
             Cearching sers = new Cearching();
             sers.Search();
-
         }
     }
     class Telephones
@@ -49,7 +49,7 @@ namespace ConsoleApp1
         //Файл з з номерами телефону
         private readonly string pathtw = @"./telw.txt";
         //Дані по дзвінкам
-        private readonly string pathV = @"./us.txt";
+        private readonly string pathV = @"./ua.txt";
 
         private string texttlv;
         private string Webs;
@@ -87,7 +87,8 @@ namespace ConsoleApp1
                     stres = Webs.IndexOf(i, stres + i.Length);
                 }
             }
-            Webs = Webs.Replace('\n', ' ');
+            Webs = Webs.Replace('\t', ' ');
+            Webs = Webs.Replace(" "," ");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Обробка закінчена");
@@ -99,7 +100,9 @@ namespace ConsoleApp1
             Console.WriteLine(" співпадінь!!!");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("---------------------------------'");
-            
+            Console.OutputEncoding = Encoding.Unicode;
+            Console.InputEncoding = Encoding.Unicode;
+            string textss ="";
             foreach ( var i in indices)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -107,11 +110,12 @@ namespace ConsoleApp1
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write(Webs.Substring(i - 2, 12));
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine(Webs.Substring(i + 10, 50));
+                Console.WriteLine(Webs.Substring(i + 10, 48));
+                textss = String.Format("{0} {1} {2}",Webs.Substring(i - 23, 21),Webs.Substring(i-2, 12),Webs.Substring(i+10, 48));
+                
             }
-
-
+            
         }
-     
-    }
+     }
+    
 }

@@ -100,8 +100,13 @@ namespace ConsoleApp1
             Console.WriteLine(" співпадінь!!!");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("---------------------------------'");
-            Console.OutputEncoding = Encoding.Unicode;
-            Console.InputEncoding = Encoding.Unicode;
+            string palth = Environment.OSVersion.Platform.ToString();
+            if (palth == "Win32NT")
+            {
+                Console.OutputEncoding = Encoding.Unicode;
+                Console.InputEncoding = Encoding.Unicode;
+            }
+            
             string textss ="";
             foreach ( var i in indices)
             {

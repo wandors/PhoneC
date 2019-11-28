@@ -70,6 +70,7 @@ namespace ConsoleApp1
             }
             texttlv = texttlv.Replace("\n", ",");
             texttlv = texttlv.Replace("  ", ",");
+            texttlv = texttlv.Replace("\r", "");
             var textarr = texttlv.Split(',');
             textarr = textarr.Distinct().ToArray();
             var indices = new List<int>();
